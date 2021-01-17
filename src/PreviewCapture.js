@@ -12,6 +12,10 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import CropIcon from '@material-ui/icons/Crop';
 import TimerIcon from '@material-ui/icons/Timer';
 import SendIcon from '@material-ui/icons/Send';
+// generate unique id for every post we send to firestore
+import { v4 as uuid } from 'uuid';
+import { storage, db } from './firebase';
+import firebase from 'firebase';
 
 const PreviewCapture = () => {
   const cameraImage = useSelector(selectCameraImage);
@@ -27,6 +31,36 @@ const PreviewCapture = () => {
     dispatch(resetCameraImage());
     // history.replace('/');
   };
+  const sendPost = () => {
+    const id = uuid();
+    const uploadTask = storage
+      .ref(`posts/${id}`)
+      .putString(cameraImage, 'data_url');
+    uploadTask.on(
+      'state_changed',
+      null,
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        // Complete function will trigger here
+        storage
+          .ref('posts')
+          .child(id)
+          .getDownloadURL()
+          .then((url) => {
+            db.collection('posts').add({
+              imageUrl: url,
+              username: 'Sam React',
+              read: false,
+              // profile pic
+              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            history.replace('/chats');
+          });
+      }
+    );
+  };
   return (
     <div className="PreviewCapture">
       <CloseIcon onClick={closePreview} className="preview__close" />
@@ -40,7 +74,7 @@ const PreviewCapture = () => {
         <CropIcon />
       </div>
       <img src={cameraImage} alt="PreviewCapture" />
-      <div className="preview__footer">
+      <div onClick={sendPost} className="preview__footer">
         <h2>Send</h2>
         <SendIcon className="preview__sendIcon" />
       </div>
