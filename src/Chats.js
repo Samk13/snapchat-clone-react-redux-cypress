@@ -19,7 +19,7 @@ const Chats = () => {
           }))
         )
       );
-  }, []);
+  }, [posts]);
   return (
     <div className="chats">
       <div className="chats__header">
