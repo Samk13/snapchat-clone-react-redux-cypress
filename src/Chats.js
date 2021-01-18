@@ -3,7 +3,7 @@ import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import { resetCameraImage } from './features/cameraSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { selectUser } from './features/appSlice';
 import { useHistory } from 'react-router-dom';
 import { Avatar } from '@material-ui/core';

@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
-import './App.css';
-import WebcamCapture from './WebcamCapture';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { login, logout, selectUser } from './features/appSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import PreviewCapture from './PreviewCapture';
+import WebcamCapture from './WebcamCapture';
+import React, { useEffect } from 'react';
 import ChatView from './ChatView';
+import { auth } from './firebase';
 import Chats from './Chats';
 import Login from './Login';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { login, logout, selectUser } from './features/appSlice';
-import { auth } from './firebase';
+import './App.css';
+
 function App() {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();

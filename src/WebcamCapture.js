@@ -1,9 +1,9 @@
-import React, { useCallback, useRef } from 'react';
-import Webcam from 'react-webcam';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import { useDispatch } from 'react-redux';
 import { setCameraImage } from './features/cameraSlice';
+import React, { useCallback, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import Webcam from 'react-webcam';
 import './WebcamCapture.css';
 const videoConstraints = {
   width: 250,

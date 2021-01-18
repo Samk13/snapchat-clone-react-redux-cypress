@@ -1,22 +1,22 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { resetCameraImage, selectCameraImage } from './features/cameraSlice';
-import './PreviewCapture.css';
-import CloseIcon from '@material-ui/icons/Close';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import AddIcon from '@material-ui/icons/Add';
-import NotesIcon from '@material-ui/icons/Notes';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-import CropIcon from '@material-ui/icons/Crop';
+import TextFieldsIcon from '@material-ui/icons/TextFields';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectUser } from './features/appSlice';
+import CloseIcon from '@material-ui/icons/Close';
+import NotesIcon from '@material-ui/icons/Notes';
 import TimerIcon from '@material-ui/icons/Timer';
 import SendIcon from '@material-ui/icons/Send';
+import CropIcon from '@material-ui/icons/Crop';
+import { useHistory } from 'react-router-dom';
+import AddIcon from '@material-ui/icons/Add';
+import React, { useEffect } from 'react';
+import { storage, db } from './firebase';
 // generate unique id for every post we send to firestore
 import { v4 as uuid } from 'uuid';
-import { storage, db } from './firebase';
 import firebase from 'firebase';
-import { selectUser } from './features/appSlice';
+import './PreviewCapture.css';
 
 const PreviewCapture = () => {
   const cameraImage = useSelector(selectCameraImage);

@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import './ChatView.css';
-import { selectSelectedImage } from './features/appSlice';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { selectSelectedImage } from './features/appSlice';
+import React, { useCallback, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import './ChatView.css';
 
 const ChatView = () => {
   const selectedImage = useSelector(selectSelectedImage);
