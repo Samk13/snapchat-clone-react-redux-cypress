@@ -7,3 +7,8 @@
   background-color: #4e4e4e;
   height: 100vh;
 }
+
+.app__logo {
+  object-fit: contain;
+  height: 100px;
+}

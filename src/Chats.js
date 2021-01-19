@@ -12,22 +12,29 @@ import Chat from './Chat';
 import './Chats.css';
 
 const Chats = () => {
+  const [unmounted, setUnmounted] = useState(false);
   const [posts, setPosts] = useState([]);
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    db.collection('posts')
-      .orderBy('timestamp', 'desc')
-      .onSnapshot((snapshot) =>
-        setPosts(
-          snapshot.docs.map((doc) => ({
-            id: doc.id,
-            data: doc.data(),
-          }))
-        )
-      );
+    !unmounted &&
+      db
+        .collection('posts')
+        .orderBy('timestamp', 'desc')
+        .onSnapshot((snapshot) => {
+          if (snapshot.size && !unmounted) {
+            setPosts(
+              snapshot.docs.map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+              }))
+            );
+          }
+        });
+    return () => setUnmounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const takeSnap = () => {

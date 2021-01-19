@@ -19,7 +19,9 @@ const WebcamCapture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     dispatch(setCameraImage(imageSrc));
     history.push('/preview');
-  }, [dispatch, history]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   return (
     <div className="webcamCapture">

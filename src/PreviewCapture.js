@@ -23,17 +23,19 @@ const PreviewCapture = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  let unmounted = false;
   useEffect(() => {
     if (!cameraImage) {
       history.replace('/');
     }
+    return () => (unmounted = true);
   }, [cameraImage, history]);
 
   const closePreview = () => {
     dispatch(resetCameraImage());
     // history.replace('/');
   };
-  const sendPost = () => {
+  const sendPost = async () => {
     const id = uuid();
     const uploadTask = storage
       .ref(`posts/${id}`)
@@ -44,9 +46,9 @@ const PreviewCapture = () => {
       (error) => {
         console.log(error);
       },
-      () => {
+      async () => {
         // Complete function will trigger here
-        storage
+        await storage
           .ref('posts')
           .child(id)
           .getDownloadURL()
