@@ -23,12 +23,10 @@ const PreviewCapture = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  let unmounted = false;
   useEffect(() => {
     if (!cameraImage) {
       history.replace('/');
     }
-    return () => (unmounted = true);
   }, [cameraImage, history]);
 
   const closePreview = () => {
@@ -55,7 +53,7 @@ const PreviewCapture = () => {
           .then((url) => {
             db.collection('posts').add({
               imageUrl: url,
-              username: 'Sam React',
+              username: user.username,
               read: false,
               profilePic: user.profilePic,
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),
